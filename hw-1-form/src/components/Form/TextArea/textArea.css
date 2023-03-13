@@ -1,0 +1,10 @@
+.txtArea-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.txtArea-field__txtArea {
+    resize: none;
+}

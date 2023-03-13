@@ -1,0 +1,15 @@
+.input-field {
+    display: inline-block;
+    margin-bottom: 1rem;
+    width: 45%;
+}
+
+.input-field:nth-child(1),
+.input-field:nth-child(3) {
+    margin-right: 20px;
+}
+
+.input-field__inpt {
+    width: 100%;
+    height: calc(2.25rem + 2px);
+}
