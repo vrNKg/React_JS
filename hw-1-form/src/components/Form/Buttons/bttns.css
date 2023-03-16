@@ -9,6 +9,13 @@
     border-radius: 10px;
 }
 
+@media screen and (max-width: 320px) {
+    .cancel,
+    .save {
+        width: fit-content;
+    }
+}
+
 .cancel:hover,
 .save:hover {
     background-color: #297be6;

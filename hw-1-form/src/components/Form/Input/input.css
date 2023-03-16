@@ -9,6 +9,21 @@
     margin-right: 20px;
 }
 
+@media screen and (max-width: 768px) {
+    .input-field:nth-child(1),
+    .input-field:nth-child(3) {
+        margin-right: 10px;
+    }
+
+    .input-field:nth-child(5) {
+        width: 90%;
+    }
+
+    .input-field__inpt{
+        font-size: 0.65rem;
+    }
+}
+
 .input-field__inpt {
     width: 100%;
     height: calc(2.25rem + 2px);

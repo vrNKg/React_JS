@@ -1,26 +1,24 @@
 import React from 'react'
 import './textArea.css'
 
-const txtAreas = [
-    {title: 'О себе'},
-    {title: 'Стек технологий'},
-    {title: 'Описание последнего проекта'},
-]
-
 class TextArea extends React.Component {
-    constructor() {
-      super()
-    
-      this.state = { txtAreas }
-    }
-
     render() {
+        const { txtAreas, onChange , state } = this.props
         return (
-            this.state.txtAreas.map((txtArea) => {
+            txtAreas.map((txtArea) => {
+              let value = state[txtArea.name]
               return (
-                  <div className='txtArea-field'>
-                      <label className='txtArea-field__label' for='txtArea'>{txtArea.title}</label>
-                      <textarea className='txtArea-field__txtArea' placeholder={txtArea.title} rows={7} id='txtArea'></textarea>
+                  <div key={txtArea.id} className='txtArea-field'>
+                      <label className='txtArea-field__label' htmlFor='txtArea'>{txtArea.title}</label>
+                      <textarea
+                      className='txtArea-field__txtArea'
+                      id='txtArea'
+                      placeholder={txtArea.title}
+                      rows={7}
+                      maxLength='600'
+                      name={txtArea.name}
+                      onChange={(event) => onChange(event)}
+                      value={value.value}/>
                   </div>
               )
             })

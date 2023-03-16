@@ -22,7 +22,14 @@ body {
   box-shadow: 0 0 5px rgba(101, 101, 101, 0.5);
 }
 
+@media screen and (max-width: 425px) {
+  .App{
+    max-width: 90%;
+  }
+}
+
 h1 {
   margin: 0;
   padding: 20px 0 20px;
 }
+

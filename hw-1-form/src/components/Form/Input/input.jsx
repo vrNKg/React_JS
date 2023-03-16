@@ -1,28 +1,24 @@
 import React from 'react'
 import './input.css'
 
-const inputs = [
-    {title: 'Имя', type: 'text'},
-    {title: 'Фамилия', type: 'text'},
-    {title: 'Дата рождения', type: 'date'},
-    {title: 'Телефон', type: 'tel', pattern: '[0-9]{3}-[0-9]{3}-[0-9]{4}'},
-    {title: 'Сайт', type: 'url',  pattern: 'https://.*'},
-]
-
 class Input extends React.Component {
-    constructor() {
-        super()
-        
-        this.state = { inputs }
-    }
-    
     render() {
+        const { inputs , onChange , state } = this.props
         return (
-            this.state.inputs.map((input) => {
+            inputs.map((input) => {
                 return (
-                    <div className='input-field'>
-                        <label className='input-field__label' for='inpt'>{input.title}</label>
-                        <input className='input-field__inpt' type={input.type} id='inpt' placeholder={input.title} pattern={input.pattern}/>
+                    <div key={input.id} className='input-field'>
+                        <label className='input-field__label' htmlFor='inpt'>{input.title}</label>
+                        <input
+                        className='input-field__inpt'
+                        type={input.type}
+                        id='inpt'
+                        placeholder={input.title}
+                        pattern={input.pattern}
+                        maxLength={input.max}
+                        name={input.name}
+                        onChange={(event) => onChange(event)}
+                        value={state[input.name]}/>
                     </div>
                 )
             })

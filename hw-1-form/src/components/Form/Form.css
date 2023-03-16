@@ -45,3 +45,12 @@ form {
     font-weight: 400;
     line-height: 1.5;
 }
+
+@media screen and (max-width: 768px) {
+    .input-field__inpt,
+    .txtArea-field__txtArea,
+    .cancel,
+    .save {
+        font-size: 0.65rem;
+    }
+}
