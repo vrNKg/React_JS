@@ -18,7 +18,9 @@ class Input extends React.Component {
                         maxLength={input.max}
                         name={input.name}
                         onChange={(event) => onChange(event)}
-                        value={state[input.name]}/>
+                        value={state[input.name]}
+                        />
+                        <p className='input-field__error'>{state[input.errorName]}</p>
                     </div>
                 )
             })

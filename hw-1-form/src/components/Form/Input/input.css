@@ -28,3 +28,12 @@
     width: 100%;
     height: calc(2.25rem + 2px);
 }
+
+.input-field__error {
+    height: 20px;
+    margin: 0 0 0 12px;
+    padding: 0;
+    text-align: left;
+    color: red;
+    font-size: small;
+}

@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css'
 import { Form } from './components/Form/Form'
+// import { Modal } from './components/Modal/Modal'
 
 class App extends React.Component {
   render() {
@@ -10,6 +11,7 @@ class App extends React.Component {
           <h1>Создание анкеты</h1>
         </header>
         <main>
+          {/* <Modal /> */}
           <Form />
         </main>
       </div>

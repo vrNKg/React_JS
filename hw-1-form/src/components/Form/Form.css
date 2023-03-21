@@ -3,13 +3,13 @@ form {
 }
 
 .inputs-field,
-.txtAreas-field {
+.textAreas-field {
     border: none;
     margin: 0;
     padding: 0;
 }
 
-.bttns-field {
+.buttons-field {
     display: flex;
     justify-content: space-around;
 }
