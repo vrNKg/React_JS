@@ -1,10 +1,10 @@
 import React from 'react'
+import { useState } from 'react'
 import './Form.css'
-import { Input } from './Input/input'
-import { TextArea } from './TextArea/textArea'
-import { Button } from './Buttons/bttns'
-import { Modal } from './Modal/Modal'
-
+import Input from './Input/input'
+import TextArea from './TextArea/textArea'
+import Button from './Buttons/bttns'
+import Modal from './Modal/Modal'
 
 const inputs = [
     {id: 1, name: 'name', title: 'Имя', type: 'text', errorName: 'nameError'},
@@ -23,13 +23,6 @@ const txtAreas = [
 const bttns = [
     {id: 1, title: 'Отменить', type: 'reset', class: 'cancel'},
     {id: 2, title: 'Сохранить', type: 'submit', class: 'save'}
-]
-
-const modalInfo = [
-    {id: 1, title: 'Дата рождения'},
-    {id: 2, title: 'Телефон'},
-    {id: 3, title: 'Сайт'}
-
 ]
 
 const initialData = {
@@ -51,14 +44,10 @@ const initialData = {
     isModalOpen: false,
 }
 
-class Form extends React.Component {
-    constructor() {
-        super()
-    
-        this.state = {...initialData}
-    }
+function Form() {
+    const [customState, setState] = useState(initialData);
 
-    handleChange = (event) => {
+    const handleChange = (event) => {
         if (event.target.name === "phoneNumber") {
             const phoneMask = event.target.value
               .replace(/\D/g, "")
@@ -69,41 +58,47 @@ class Form extends React.Component {
               .filter((item) => item !== "")
               .join("-");
       
-            this.setState({
+            setState((customState) => ({
+                ...customState,
               [event.target.name]: phone
-            })
+            }))
         } else if (event.target.name === 'name' || event.target.name === 'surname') {
             if (event.target.value.charAt(0) !== event.target.value.charAt(0).toUpperCase()) {
-                this.setState({
+                setState((customState) => ({
+                    ...customState,
                     [event.target.name]: event.target.value.toUpperCase()
-                })
+                }))
             } else {
-                this.setState({
+                setState((customState) => ({
+                    ...customState,
                     [event.target.name]: event.target.value.trim()
-                })
+                }))
             }
         } else {
-            this.setState({
+            setState((customState) => ({
+                ...customState,
                 [event.target.name]: event.target.value.trim()
-            })
+            }))
         }
     }
     
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault()
+
+        const state = { ...customState }
 
         let isError = true
 
         inputs.forEach((name)=> {
-            switch(this.state[name.name]){
+            switch(state[name.name]){
                 case '':
-                    this.setState({
+                    setState({
                         [name.errorName]: 'Пожалуйста, заполните данное поле'
                     })
                     isError = true
                     break
                 default:
-                    this.setState({
+                    setState({
                         [name.errorName]: ''
                     })
                     isError = false
@@ -117,35 +112,30 @@ class Form extends React.Component {
         })
 
         if (!isError) {
-            this.setState({
+            setState({
                 isModalOpen: true
-
             })
         }
 
     }
 
-    handleReset = () => {
-        this.setState(initialData)
+    const handleReset = () => {
+        setState(initialData)
     }
 
-    render() {
-        const state = this.state
-        return (
-            <form onSubmit={this.handleSubmit}  onReset={this.handleReset}>
+    return (
+        <form onSubmit={handleSubmit}  onReset={handleReset}>
                 <fieldset className='inputs-field'>
-                    <Input inputs={ inputs } onChange={this.handleChange} state={state}/>
+                    <Input inputs={ inputs } onChange={handleChange} customState={customState}/>
                 </fieldset>
                 <fieldset className='textAreas-field'>
-                    <TextArea txtAreas={ txtAreas } onChange={this.handleChange} state={state}/>
+                    <TextArea txtAreas={ txtAreas } onChange={handleChange} customState={customState}/>
                 </fieldset>
                 <div className='buttons-field'>
                     <Button bttns={ bttns }/>
                 </div>
-                <Modal state={state} modalInfo={ modalInfo }/>
+                <Modal customState={customState}/>
             </form>
-        )
-    }
+    )
 }
-
-export { Form }
+export default Form
