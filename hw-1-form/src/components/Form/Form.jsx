@@ -1,10 +1,10 @@
-import React from 'react'
-import { useState } from 'react'
+import React, {useState} from 'react'
 import './Form.css'
-import Input from './Input/input'
+import Input  from './Input/input'
 import TextArea from './TextArea/textArea'
 import Button from './Buttons/bttns'
 import Modal from './Modal/Modal'
+
 
 const inputs = [
     {id: 1, name: 'name', title: 'Имя', type: 'text', errorName: 'nameError'},
@@ -44,23 +44,23 @@ const initialData = {
     isModalOpen: false,
 }
 
-function Form() {
+export default function Form() {
     const [customState, setState] = useState(initialData);
 
     const handleChange = (event) => {
         if (event.target.name === "phoneNumber") {
             const phoneMask = event.target.value
-              .replace(/\D/g, "")
-              .match(/(\d{0,1})(\d{0,4})(\d{0,2})(\d{0,2})/)
+                  .replace(/\D/g, "")
+                  .match(/(\d{0,1})(\d{0,4})(\d{0,2})(\d{0,2})/)
 
             const phone = phoneMask
-              .slice(1, 5)
-              .filter((item) => item !== "")
-              .join("-");
-      
+                  .slice(1, 5)
+                  .filter((item) => item !== "")
+                  .join("-");
+              
             setState((customState) => ({
                 ...customState,
-              [event.target.name]: phone
+                [event.target.name]: phone
             }))
         } else if (event.target.name === 'name' || event.target.name === 'surname') {
             if (event.target.value.charAt(0) !== event.target.value.charAt(0).toUpperCase()) {
@@ -70,8 +70,8 @@ function Form() {
                 }))
             } else {
                 setState((customState) => ({
-                    ...customState,
-                    [event.target.name]: event.target.value.trim()
+                        ...customState,
+                        [event.target.name]: event.target.value.trim()
                 }))
             }
         } else {
@@ -81,26 +81,25 @@ function Form() {
             }))
         }
     }
-    
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        const state = { ...customState }
-
         let isError = true
-
+        
         inputs.forEach((name)=> {
-            switch(state[name.name]){
+            switch(customState[name.name]){
                 case '':
-                    setState({
+                    setState((customState) => ({
+                        ...customState,
                         [name.errorName]: 'Пожалуйста, заполните данное поле'
-                    })
+                    }))
                     isError = true
                     break
                 default:
-                    setState({
+                    setState((customState) => ({
+                        ...customState,
                         [name.errorName]: ''
-                    })
+                    }))
                     isError = false
                     break
             }
@@ -108,23 +107,22 @@ function Form() {
                 top: 0,
                 left: 0,
                 behavior: 'smooth'
-              })
-        })
-
-        if (!isError) {
-            setState({
-                isModalOpen: true
             })
-        }
-
+        })
+        if (!isError) {
+            setState((customState) => ({
+                ...customState,
+                isModalOpen: true
+            }))
+            }
     }
-
+    
     const handleReset = () => {
         setState(initialData)
     }
-
+        
     return (
-        <form onSubmit={handleSubmit}  onReset={handleReset}>
+            <form onSubmit={handleSubmit}  onReset={handleReset}>
                 <fieldset className='inputs-field'>
                     <Input inputs={ inputs } onChange={handleChange} customState={customState}/>
                 </fieldset>
@@ -138,4 +136,3 @@ function Form() {
             </form>
     )
 }
-export default Form
